@@ -22,7 +22,7 @@ pub fn flip_img(image_path:String) -> ImageBuffer<Rgba<u8>, Vec<u8>> {
    
     
     let mut flip_width = 0;
-    let mut flip_height = width-1;
+    let mut flip_height = height-1;
 
     let mut pixel_it = img.pixels().peekable();
     //while let Some(pix) = pixel_it.next() {
