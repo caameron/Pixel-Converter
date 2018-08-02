@@ -9,9 +9,6 @@ use image::{DynamicImage, GenericImage};
 use flip;
 use mirror;
 use grayscale;
-use rotate90;
-use rotate180;
-use rotate270;
 
 
 //Struct to hold information about image so that it can be passed around from function to function
@@ -66,23 +63,4 @@ impl MainImage {
 	self.img = image::ImageRgba8(grayscale::grayscale_img(&self));
 	self
    }
-
-   //Function that will rotate picture by 90 degrees clockwise. 
-   pub fn rotate90_image(mut self) -> MainImage {
-	self.img = image::ImageRgba8(rotate90::rotate90_img(&self));
-	self
-   }
-
-    //Function that will rotate picture by 180 degrees clockwise. 
-   pub fn rotate180_image(mut self) -> MainImage {
-	self.img = image::ImageRgba8(rotate180::rotate180_img(&self));
-	self
-   }
- 
-    //Function that will rotate picture by 270 degrees clockwise. 
-   pub fn rotate270_image(mut self) -> MainImage {
-	self.img = image::ImageRgba8(rotate270::rotate270_img(&self));
-	self
-   }
-
 }
