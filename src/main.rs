@@ -13,7 +13,8 @@ fn main() {
     //println!("dimensions {:?}", img.dimensions());
 
 
-    let new_img = flip::flip_img("pexels-photo-248797.jpeg".to_string());
+    //let new_img = flip::flip_img("pexels-photo-248797.jpeg".to_string());
+    let new_img = flip::flip_img("./pexels-photo-248797.jpeg".to_string());
 
     //Save new image as a output.png
     let ref mut fout = File::create("output.png").expect("Cannot create file");
