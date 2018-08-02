@@ -52,11 +52,13 @@ impl MainImage {
        self
    }
 
+   //Function that will mirror the image on the y axis. 
    pub fn mirror_image(mut self) -> MainImage {
 	self.img = image::ImageRgba8(mirror::mirror_img(&self));
 	self
    }
 
+   //Function will gray out the image.
    pub fn grayscale_image(mut self) -> MainImage {
 	self.img = image::ImageRgba8(grayscale::grayscale_img(&self));
 	self
