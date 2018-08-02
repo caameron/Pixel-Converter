@@ -3,6 +3,9 @@ extern crate image;
 mod flip;
 mod mirror;
 mod grayscale;
+mod rotate90;
+mod rotate180;
+mod rotate270;
 mod imagestruct;
 
 //Main Function for the project.
@@ -20,7 +23,11 @@ fn main() {
 
     //img = img.mirror_image();
 
-    img = img.grayscale_image();
+    //img = img.grayscale_image();
+
+//	img = img.rotate90_image();
+	img = img.rotate180_image();
+//	img = img.rotate270_image();
 
     //Output will place a file in the src directory
     img.output();
