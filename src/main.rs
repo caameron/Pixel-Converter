@@ -1,6 +1,8 @@
 extern crate image;
 
 mod flip;
+mod mirror;
+mod grayscale;
 mod imagestruct;
 
 //Main Function for the project.
@@ -13,7 +15,13 @@ fn main() {
     let mut img = imagestruct::MainImage::new(path.to_string());
 
     //Call the flip function and output function
-    img = img.flip_image();
+
+    //img = img.flip_image();
+
+    //img = img.mirror_image();
+
+    img = img.grayscale_image();
+
     //Output will place a file in the src directory
     img.output();
 

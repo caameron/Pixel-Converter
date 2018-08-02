@@ -7,6 +7,8 @@ extern crate image;
 
 use image::{DynamicImage, GenericImage};
 use flip;
+use mirror;
+use grayscale;
 
 
 //Struct to hold information about image so that it can be passed around from function to function
@@ -48,5 +50,15 @@ impl MainImage {
    pub fn flip_image(mut self) -> MainImage {
        self.img = image::ImageRgba8(flip::flip_img(&self));
        self
+   }
+
+   pub fn mirror_image(mut self) -> MainImage {
+	self.img = image::ImageRgba8(mirror::mirror_img(&self));
+	self
+   }
+
+   pub fn grayscale_image(mut self) -> MainImage {
+	self.img = image::ImageRgba8(grayscale::grayscale_img(&self));
+	self
    }
 }
