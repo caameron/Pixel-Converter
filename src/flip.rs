@@ -18,14 +18,13 @@ pub fn flip_img(image_path:String) -> ImageBuffer<Rgba<u8>, Vec<u8>> {
     //Create a new image that will contain the flipped image
     let mut flipped = ImageBuffer::new(width, height);
     //Iterate through the pixels of the image and copy them over to their opposite of the flipped
-    //image
+    //image.
    
     
     let mut flip_width = 0;
     let mut flip_height = height-1;
 
     let mut pixel_it = img.pixels().peekable();
-    //while let Some(pix) = pixel_it.next() {
     for pixel in img.pixels(){
         flipped.put_pixel(flip_width, flip_height, pixel.2);
         flip_width += 1;
