@@ -1,7 +1,7 @@
 //File will contain the code for the struct that will hold the image passed in from the user. The
 //struct will contain functions that will alter the image.
 
-use std::fs::File;
+use std::io;
 
 extern crate image;
 
@@ -83,6 +83,28 @@ impl MainImage {
    pub fn rotate270_image(mut self) -> MainImage {
 	self.img = image::ImageRgba8(rotate270::rotate270_img(&self));
 	self
+   }
+
+   //Function that will choose which rotation to execute
+   pub fn choose_rotation(self) -> MainImage {
+       //Ask for what degree the user wants to rotate their image
+       let mut degree = String::new();
+       println!("Choose what degree you want to rotate your picture. 90, 180, 270?");
+       io::stdin().read_line(&mut degree).expect("Choice not entered in correctly");
+       degree.pop();
+
+       //Match user choice with a function to execute
+       
+       let return_self = match degree.as_ref() {
+           "90"  => self.rotate90_image(),
+           "180" => self.rotate180_image(),
+           "270" => self.rotate270_image(),
+           _     => {
+               println!("NOT A VALID CHOICE");
+               self
+            },
+       };
+       return_self
    }
 
 }
