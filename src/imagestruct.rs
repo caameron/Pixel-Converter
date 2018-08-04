@@ -4,6 +4,7 @@
 use std::io;
 
 extern crate image;
+extern crate rand;
 
 use image::{DynamicImage, GenericImage};
 use flip;
@@ -12,6 +13,8 @@ use grayscale;
 use rotate90;
 use rotate180;
 use rotate270;
+use jumbler;
+use enlarge;
 
 
 //Struct to hold information about image so that it can be passed around from function to function
@@ -105,6 +108,18 @@ impl MainImage {
             },
        };
        return_self
+   }
+
+   //Function that will randomize pixels of image to create jumbled image
+   pub fn jumbler_image(mut self) -> MainImage {
+	self.img = image::ImageRgba8(jumbler::jumbler_img(&self));
+	self
+   }
+
+   //Function that will double the size of the image.
+   pub fn enlarge_image(mut self) -> MainImage {
+	self.img = image::ImageRgba8(enlarge::enlarge_img(&self));
+	self
    }
 
 }
