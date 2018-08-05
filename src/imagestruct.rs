@@ -15,6 +15,7 @@ use rotate180;
 use rotate270;
 use jumbler;
 use enlarge;
+use pixelate;
 
 
 //Struct to hold information about image so that it can be passed around from function to function
@@ -120,6 +121,12 @@ impl MainImage {
    pub fn enlarge_image(mut self) -> MainImage {
 	self.img = image::ImageRgba8(enlarge::enlarge_img(&self));
 	self
+   }
+
+   //Function that will pixelate the whole image
+   pub fn pixelate_img(mut self) -> MainImage {
+       self.img = image::ImageRgba8(pixelate::pixelate(&self));
+       self
    }
 
 }
