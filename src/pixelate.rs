@@ -1,16 +1,23 @@
 extern crate image;
 use image::{Rgba, ImageBuffer, GenericImage};
 use imagestruct;
+use std::io;
 
 //Pixelate image
-//Grabs every 10x10 pixels and forms them together to pixelate the image.
+//Grabs every nthxnth pixels and forms them together to pixelate the image.
 pub fn pixelate(img_struct:&imagestruct::MainImage) -> ImageBuffer<Rgba<u8>, Vec<u8>>
 {
 	let width = img_struct.width;
 	let height = img_struct.height;
 
-    //Size of the new pixels after pixelation
-    let big_pix = 10;
+    //Ask user for the size of the new pixels after pixelation
+    let mut size = String::new();
+    println!("Please pick a pixelation value from 1 to 5. The higher the number the more pixelated the image will become");
+    io::stdin().read_line(&mut size).expect("Value entered in incorrectly");
+    size.pop();
+
+    let mut big_pix = size.parse::<u32>().unwrap(); 
+    big_pix = big_pix*2;
 	let mut pixelated_img = ImageBuffer::new(width,height);
 
 
@@ -40,3 +47,4 @@ pub fn pixelate(img_struct:&imagestruct::MainImage) -> ImageBuffer<Rgba<u8>, Vec
 //user to input the dimensions of where they want to pixelate it.
 //(Will ask for a starting x y position and how long in the x and y direction they want to go
 //0,0      500 500. this will start at position 0 and go 500 pixels in the x and y directipons
+
