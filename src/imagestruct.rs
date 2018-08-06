@@ -71,8 +71,12 @@ impl MainImage {
    }
 
    //Function that will rotate picture by 90 degrees clockwise. 
+   //also saves new dimensions.
    pub fn rotate90_image(mut self) -> MainImage {
 	self.img = image::ImageRgba8(rotate90::rotate90_img(&self));
+	let (width,height) = self.img.dimensions();
+	self.width = width;
+	self.height = height;
 	self
    }
 
@@ -83,8 +87,12 @@ impl MainImage {
    }
  
     //Function that will rotate picture by 270 degrees clockwise. 
+    //also saves new dimensions.
    pub fn rotate270_image(mut self) -> MainImage {
 	self.img = image::ImageRgba8(rotate270::rotate270_img(&self));
+	let (width,height) = self.img.dimensions();
+	self.width = width;
+	self.height = height;
 	self
    }
 
@@ -117,8 +125,12 @@ impl MainImage {
    }
 
    //Function that will double the size of the image.
+   //also saves new dimensions.
    pub fn enlarge_image(mut self) -> MainImage {
 	self.img = image::ImageRgba8(enlarge::enlarge_img(&self));
+	let (width,height) = self.img.dimensions();
+	self.width = width;
+	self.height = height;
 	self
    }
 
