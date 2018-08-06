@@ -3,28 +3,31 @@ extern crate rand;
 
 use std::io;
 
+mod enlarge;
 mod flip;
-mod mirror;
 mod grayscale;
-mod rotate90;
+mod imagestruct;
+mod jumbler;
+mod mirror;
+mod pixelate;
 mod rotate180;
 mod rotate270;
-mod jumbler;
-mod enlarge;
-mod imagestruct;
-
+mod rotate90;
 
 //Main Function for the project.
 fn main() {
-
     //When the program is called, it give a description of what it does and also ask for the path
     //of the image they wish to change. The program will then attempt to open that image and give
     //options to the user if it is opened correctly or send out an error if it failed
-    
-    println!("This is an image editor program. It will allow you to alter an image of your choice ");
+
+    println!(
+        "This is an image editor program. It will allow you to alter an image of your choice "
+    );
     println!("using the features available. Please input the path to your image file.");
     let mut image_path = String::new();
-    io::stdin().read_line(&mut image_path).expect("String entered in incorrectly");
+    io::stdin()
+        .read_line(&mut image_path)
+        .expect("String entered in incorrectly");
 
     //Pop the last char from the input because it is '\n' and that is not needed in the path
     image_path.pop();
@@ -47,48 +50,36 @@ fn main() {
     while continue_menu == true {
         println!("What would you like to be done to your image?");
         println!("1 : Flip\n2 : Mirror\n3 : Grayscale\n4 : Rotate\n5 : Jumble\n6 : Enlarge");
+        println!("7 : Pixelate");
         println!("0 : EXIT PROGRAM");
         //Can place new menu items here
-        
+
         println!("Enter in the number of the feature: ");
-        io::stdin().read_line(&mut choice).expect("Choice not entered in correctly");
+        io::stdin()
+            .read_line(&mut choice)
+            .expect("Choice not entered in correctly");
         choice.pop();
 
         //match statement to see which choice the user entered and to call the correct function
         //based on their answer
         match choice.as_ref() {
-            "0"  => continue_menu = false,
-            "1"  => img = img.flip_image(),
-            "2"  => img = img.mirror_image(),
-            "3"  => img = img.grayscale_image(),
-            "4"  => img = img.choose_rotation(),
-	    "5"  => img = img.jumbler_image(),
-	    "6"  => img = img.enlarge_image(),
-            _    => println!("Not a valid choice, please choose again."),
+            "0" => continue_menu = false,
+            "1" => img = img.flip_image(),
+            "2" => img = img.mirror_image(),
+            "3" => img = img.grayscale_image(),
+            "4" => img = img.choose_rotation(),
+            "5" => img = img.jumbler_image(),
+            "6" => img = img.enlarge_image(),
+            "7" => img = img.pixelate_img(),
+            _ => println!("Not a valid choice, please choose again."),
         }
         choice.clear();
     }
 
-    //create path variable
     //let path = "./test_pictures/pexels-photo-248797.jpeg";
     //let path = "./test_pictures/Test.jpg";
     //let path = "Test.jpg";
-
-    //Call the flip function and output function
-
-    //img = img.flip_image();
-
-    //img = img.mirror_image();
-
-    //img = img.grayscale_image();
-
-    //	img = img.rotate90_image();
-    //	img = img.rotate180_image();
-    //	img = img.rotate270_image();
-
     println!("PROGRAM EXITING...");
     //Output will place a file in the src director
     img.output();
-
 }
-
