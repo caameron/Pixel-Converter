@@ -50,20 +50,6 @@ impl MainImage {
         self.img.save("output.png").expect("unable to save file");
     }
 
-    //Function that will flip the image on the x axis. It will call a helper function called
-    //flip_image
-    pub fn flip_image(mut self) -> MainImage {
-        self.img = image::ImageRgba8(flip::flip_img(&self));
-        self
-    }
-
-    //Function that will mirror the image on the y axis.
-    pub fn mirror_image(mut self) -> MainImage {
-        self.img = image::ImageRgba8(mirror::mirror_img(&self));
-        self
-    }
-<<<<<<< HEAD
-    
     
    //Function that will flip the image on the x axis. It will call a helper function called
    //flip_image
@@ -147,69 +133,6 @@ impl MainImage {
 	self.height = height;
 	self
    }
-=======
->>>>>>> 6f3475604676561c20f7875c3a92d83c7e849ac7
-
-    //Function will gray out the image.
-    pub fn grayscale_image(mut self) -> MainImage {
-        self.img = image::ImageRgba8(grayscale::grayscale_img(&self));
-        self
-    }
-
-    //Function that will rotate picture by 90 degrees clockwise.
-    pub fn rotate90_image(mut self) -> MainImage {
-        self.img = image::ImageRgba8(rotate90::rotate90_img(&self));
-        self
-    }
-
-    //Function that will rotate picture by 180 degrees clockwise.
-    pub fn rotate180_image(mut self) -> MainImage {
-        self.img = image::ImageRgba8(rotate180::rotate180_img(&self));
-        self
-    }
-
-    //Function that will rotate picture by 270 degrees clockwise.
-    pub fn rotate270_image(mut self) -> MainImage {
-        self.img = image::ImageRgba8(rotate270::rotate270_img(&self));
-        self
-    }
-
-    //Function that will choose which rotation to execute
-    pub fn choose_rotation(self) -> MainImage {
-        //Ask for what degree the user wants to rotate their image
-        let mut degree = String::new();
-        println!("Choose what degree you want to rotate your picture. 90, 180, 270?");
-        io::stdin()
-            .read_line(&mut degree)
-            .expect("Choice not entered in correctly");
-        degree.pop();
-
-        //Match user choice with a function to execute
-
-        let return_self = match degree.as_ref() {
-            "90" => self.rotate90_image(),
-            "180" => self.rotate180_image(),
-            "270" => self.rotate270_image(),
-            _ => {
-                println!("NOT A VALID CHOICE");
-                self
-            }
-        };
-        return_self
-    }
-
-    //Function that will randomize pixels of image to create jumbled image
-    pub fn jumbler_image(mut self) -> MainImage {
-        self.img = image::ImageRgba8(jumbler::jumbler_img(&self));
-        self
-    }
-
-    //Function that will double the size of the image.
-    pub fn enlarge_image(mut self) -> MainImage {
-        self.img = image::ImageRgba8(enlarge::enlarge_img(&self));
-        self
-    }
-
     //Function that will pixelate the whole image
     pub fn pixelate_img(mut self) -> MainImage {
         self.img = image::ImageRgba8(pixelate::pixelate(&self));
