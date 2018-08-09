@@ -3,6 +3,7 @@ extern crate rand;
 
 use std::io;
 
+mod crop;
 mod enlarge;
 mod flip;
 mod grayscale;
@@ -13,7 +14,6 @@ mod pixelate;
 mod rotate180;
 mod rotate270;
 mod rotate90;
-mod crop;
 
 //Main Function for the project.
 fn main() {
@@ -52,7 +52,7 @@ fn main() {
         println!("What would you like to be done to your image?");
         println!("1 : Flip\n2 : Mirror\n3 : Grayscale\n4 : Rotate\n5 : Jumble\n6 : Enlarge");
         println!("7 : Pixelate");
-	println!("8 : Crop");
+        println!("8 : Crop");
         println!("0 : EXIT PROGRAM");
         //Can place new menu items here
 
@@ -73,7 +73,7 @@ fn main() {
             "5" => img = img.jumbler_image(),
             "6" => img = img.enlarge_image(),
             "7" => img = img.pixelate_img(),
-	    "8" => img = img.crop_img(),
+            "8" => img = img.crop_img(),
             _ => println!("Not a valid choice, please choose again."),
         }
         choice.clear();

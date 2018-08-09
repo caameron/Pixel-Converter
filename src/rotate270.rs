@@ -8,7 +8,7 @@ pub fn rotate270_img(img_struct: &imagestruct::MainImage) -> ImageBuffer<Rgba<u8
     let width = img_struct.width;
     let height = img_struct.height;
 
-    let mut rotated = ImageBuffer::new(height, width);  //newly rotated image will have opposite dim.
+    let mut rotated = ImageBuffer::new(height, width); //newly rotated image will have opposite dim.
 
     let mut rot_width = 0;
     let mut rot_height = width - 1;
