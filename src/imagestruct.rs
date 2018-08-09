@@ -44,11 +44,23 @@ impl MainImage {
 
     //Function to output the image file
     pub fn output(self) {
-        //Create and Save new image file as a output.png it will be located in the src directory
+        //Create and save the finished image by asking the user what they would like to name their
+        //file. The file will be saved as .png extension
+        //The file will be saved in the Output directory that is also in the src files
 
-        //it works without this but i'm keeping it here for reference just in case
-        //let ref mut fout = File::create("output.png").expect("Cannot create file");
-        self.img.save("output.png").expect("unable to save file");
+        //self.img.save("output.png").expect("unable to save file");
+        println!("Enter the name of the file you would like to save (Do not add in extension)");
+        let mut path = "./Output/".to_string();
+        let mut name = String::new();
+        io::stdin()
+            .read_line(&mut name)
+            .expect("Value entered incorrectly");
+        name.pop();
+
+        //Add file extension to the name that the user has entered
+        name.push_str(".png");
+        path.push_str(&name);
+        self.img.save(path).expect("unable to save file");
     }
 
     
