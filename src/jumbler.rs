@@ -1,3 +1,4 @@
+//this file contains the function that will randomly jumble up pixels of an image.
 extern crate image;
 extern crate rand;
 use image::{GenericImage, ImageBuffer, Rgba};
@@ -12,14 +13,17 @@ pub fn jumbler_img(img_struct: &imagestruct::MainImage) -> ImageBuffer<Rgba<u8>,
 
     let mut jumbled = ImageBuffer::new(width, height);
 
+    //collect all the possible coordinants of the image.
     for x in 0..(width as usize) {
         for y in 0..(height as usize) {
             randcoord.push((x, y));
         }
     }
 
+    //shuffle the coordinants of the image.
     rand::thread_rng().shuffle(&mut randcoord);
 
+    //iterate through the pixels and put them in random coordinants
     for pixel in img_struct.img.pixels() {
         jumbled.put_pixel(
             randcoord[index].0 as u32,

@@ -1,6 +1,17 @@
 # Pixel-Converter
 Pixel Converter for Rust Programming Language Class
 
+#How to run program
+Download the repository and have the path of the image you want to alter on hand
+
+run : cargo run
+
+All crates will be downloaded and the program will prompt you to give the path of the image you want to alter.
+The program will then display a menu and give you instructions
+
+When finished the ouput of the program will be saved to the Output directory which is located with the source files in
+the src directory
+
 # Topic Area and Project Vision
 For this project we want to focus on image manipulation by changing its pixels. So our topic area revolves around images and graphics and
 the unique and vast ways they can be changed or altered to match someones preferences or creativity.
