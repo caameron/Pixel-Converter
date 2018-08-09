@@ -16,6 +16,7 @@ use pixelate;
 use rotate180;
 use rotate270;
 use rotate90;
+use crop;
 
 //Struct to hold information about image so that it can be passed around from function to function
 pub struct MainImage {
@@ -137,5 +138,14 @@ impl MainImage {
     pub fn pixelate_img(mut self) -> MainImage {
         self.img = image::ImageRgba8(pixelate::pixelate(&self));
         self
+    }
+
+    //Function that will crop image to desired dimensions.
+    pub fn crop_img(mut self) -> MainImage {
+	self.img = image::ImageRgba8(crop::crop(&self));
+	let (width,height) = self.img.dimensions();
+	self.width = width;
+	self.height = height;
+	self
     }
 }
