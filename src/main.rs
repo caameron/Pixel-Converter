@@ -100,4 +100,31 @@ mod flip_test {
   
         assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
     }
+
+    #[test]
+    fn test_gray() {
+        let flip_image = image::open("./src/test_pictures/gray.png".to_string()).expect("TEST ERROR");
+        let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img = test_img.grayscale_image();
+  
+        assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+    }     
+    
+    #[test]
+    fn test_enlarge() {
+        let flip_image = image::open("./src/test_pictures/enlarge.png".to_string()).expect("TEST ERROR");
+        let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img = test_img.enlarge_image();
+  
+        assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+    }
+    
+    #[test]
+    fn test_mirror() {
+        let flip_image = image::open("./src/test_pictures/mirror.png".to_string()).expect("TEST ERROR");
+        let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img = test_img.mirror_image();
+  
+        assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+    }
 }
