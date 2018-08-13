@@ -91,6 +91,7 @@ mod flip_test {
     extern crate image;
     use image::GenericImage;
     use imagestruct;
+    use pixelate;
   
     #[test]
     fn test_flip() {
@@ -126,5 +127,19 @@ mod flip_test {
         test_img = test_img.mirror_image();
   
         assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+    }
+
+        //self.img = image::ImageRgba8(pixelate::pixelate(&self));
+    #[test]
+    fn test_pixelate() {
+        let flip_image = image::open("./src/test_pictures/pixel_area.png".to_string()).expect("TEST ERROR");
+        let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img.img = image::ImageRgba8(pixelate::pixelate_area_test(&test_img));
+  
+        assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+       
+        let test_image = image::open("./src/test_pictures/pixel_whole.png".to_string()).expect("TEST ERROR");
+        test_img.img = image::ImageRgba8(pixelate::pixelate_test(&test_img));
+        assert_eq!(test_image.pixels().eq(test_img.img.pixels()), true);
     }
 }

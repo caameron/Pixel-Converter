@@ -112,3 +112,101 @@ pub fn pixelate(img_struct: &imagestruct::MainImage) -> ImageBuffer<Rgba<u8>, Ve
     }
     pixelated_img
 }
+
+//Seperate function which is exactly the same as the pixelate function above however this version
+//does not have input output and will strictly be used for testing purposes
+#[allow(dead_code)]
+pub fn pixelate_test(img_struct: &imagestruct::MainImage) -> ImageBuffer<Rgba<u8>, Vec<u8>> {
+    let width = img_struct.width;
+    let height = img_struct.height;
+
+    let big_pix = 6;
+    let mut pixelated_img = ImageBuffer::new(width, height);
+
+    //Copy over image to be pixelated
+    for wid in 0..width {
+        for hei in 0..height {
+            let pix = img_struct.img.get_pixel(wid, hei);
+            pixelated_img.put_pixel(wid, hei, pix);
+        }
+    }
+
+    //Variables to determine pixelation area
+    let x_start;
+    let y_start;
+    let x_end;
+    let y_end;
+    
+    x_start = 0;
+    y_start = 0;
+    x_end = width;
+    y_end = height;
+
+    //Loop through the pixels in the image, grabbing every pixel that will represent a block.
+    //That pixel will then be copied over to the other pixels in the block.
+    for wid in x_start..x_end {
+        for hei in y_start..y_end {
+            if (wid % big_pix == 0) && (hei % big_pix == 0) {
+                let base_pix = img_struct.img.get_pixel(wid, hei);
+
+                for neighbor_width in wid..wid + big_pix + 1 {
+                    for neighbor_height in hei..hei + big_pix + 1 {
+                        if (neighbor_width < x_end) && (neighbor_height < y_end) {
+                            pixelated_img.put_pixel(neighbor_width, neighbor_height, base_pix);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    pixelated_img
+}
+
+//Seperate function that will be used for testing purposes. Specifically it will be used to test
+//pixelating a certain area
+#[allow(dead_code)]
+pub fn pixelate_area_test(img_struct: &imagestruct::MainImage) -> ImageBuffer<Rgba<u8>, Vec<u8>> {
+    let width = img_struct.width;
+    let height = img_struct.height;
+
+    let big_pix = 6;
+    let mut pixelated_img = ImageBuffer::new(width, height);
+
+    //Copy over image to be pixelated
+    for wid in 0..width {
+        for hei in 0..height {
+            let pix = img_struct.img.get_pixel(wid, hei);
+            pixelated_img.put_pixel(wid, hei, pix);
+        }
+    }
+
+    //Variables to determine pixelation area
+    let x_start;
+    let y_start;
+    let x_end;
+    let y_end;
+
+    x_start = 100;
+    y_start = 100;
+    x_end = 200;
+    y_end = 200;
+
+    //Loop through the pixels in the image, grabbing every pixel that will represent a block.
+    //That pixel will then be copied over to the other pixels in the block.
+    for wid in x_start..x_end {
+        for hei in y_start..y_end {
+            if (wid % big_pix == 0) && (hei % big_pix == 0) {
+                let base_pix = img_struct.img.get_pixel(wid, hei);
+
+                for neighbor_width in wid..wid + big_pix + 1 {
+                    for neighbor_height in hei..hei + big_pix + 1 {
+                        if (neighbor_width < x_end) && (neighbor_height < y_end) {
+                            pixelated_img.put_pixel(neighbor_width, neighbor_height, base_pix);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    pixelated_img
+}
