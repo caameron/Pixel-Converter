@@ -2,7 +2,6 @@ extern crate image;
 extern crate rand;
 
 use std::io;
-
 mod crop;
 mod enlarge;
 mod flip;
@@ -33,6 +32,7 @@ fn main() {
     //Pop the last char from the input because it is '\n' and that is not needed in the path
     image_path.pop();
 
+   
     //Create new struct instance of MainImage which will contain the image and its dimensions
     let mut img = imagestruct::MainImage::new(image_path);
 
@@ -79,10 +79,52 @@ fn main() {
         choice.clear();
     }
 
-    //let path = "./test_pictures/pexels-photo-248797.jpeg";
-    //let path = "./test_pictures/Test.jpg";
-    //let path = "Test.jpg";
     println!("PROGRAM EXITING...");
     //Output will place a file in the src director
     img.output();
+}
+
+
+//Unit tests that test each individual feature.
+#[cfg(test)]
+mod flip_test {
+    extern crate image;
+    use image::GenericImage;
+    use imagestruct;
+  
+    #[test]
+    fn test_flip() {
+        let flip_image = image::open("./src/test_pictures/flip.png".to_string()).expect("TEST ERROR");
+        let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img = test_img.flip_image();
+  
+        assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+    }
+
+    #[test]
+    fn test_gray() {
+        let flip_image = image::open("./src/test_pictures/gray.png".to_string()).expect("TEST ERROR");
+        let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img = test_img.grayscale_image();
+  
+        assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+    }     
+    
+    #[test]
+    fn test_enlarge() {
+        let flip_image = image::open("./src/test_pictures/enlarge.png".to_string()).expect("TEST ERROR");
+        let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img = test_img.enlarge_image();
+  
+        assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+    }
+    
+    #[test]
+    fn test_mirror() {
+        let flip_image = image::open("./src/test_pictures/mirror.png".to_string()).expect("TEST ERROR");
+        let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img = test_img.mirror_image();
+  
+        assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+    }
 }

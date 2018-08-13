@@ -4,6 +4,10 @@ Pixel Converter for Rust Programming Language Class
 #How to run program
 Download the repository and have the path of the image you want to alter on hand
 
+Switch into the src directory.
+(This is still a work in progress, so for now the program has to run in the src directory or else the program will not be able
+to save the output image correctly)
+
 run : cargo run
 
 All crates will be downloaded and the program will prompt you to give the path of the image you want to alter.
