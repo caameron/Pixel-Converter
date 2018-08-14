@@ -91,6 +91,10 @@ mod flip_test {
     extern crate image;
     use image::GenericImage;
     use imagestruct;
+    use pixelate;
+    use rotate90;
+    use rotate180;
+    use rotate270;
   
     #[test]
     fn test_flip() {
@@ -103,28 +107,71 @@ mod flip_test {
 
     #[test]
     fn test_gray() {
-        let flip_image = image::open("./src/test_pictures/gray.png".to_string()).expect("TEST ERROR");
+        let gray_image = image::open("./src/test_pictures/gray.png".to_string()).expect("TEST ERROR");
         let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
         test_img = test_img.grayscale_image();
   
-        assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+        assert_eq!(gray_image.pixels().eq(test_img.img.pixels()), true);
     }     
     
     #[test]
     fn test_enlarge() {
-        let flip_image = image::open("./src/test_pictures/enlarge.png".to_string()).expect("TEST ERROR");
+        let enlarge_image = image::open("./src/test_pictures/enlarge.png".to_string()).expect("TEST ERROR");
         let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
         test_img = test_img.enlarge_image();
   
-        assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+        assert_eq!(enlarge_image.pixels().eq(test_img.img.pixels()), true);
     }
     
     #[test]
     fn test_mirror() {
-        let flip_image = image::open("./src/test_pictures/mirror.png".to_string()).expect("TEST ERROR");
+        let mirror_image = image::open("./src/test_pictures/mirror.png".to_string()).expect("TEST ERROR");
         let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
         test_img = test_img.mirror_image();
   
-        assert_eq!(flip_image.pixels().eq(test_img.img.pixels()), true);
+        assert_eq!(mirror_image.pixels().eq(test_img.img.pixels()), true);
     }
+
+    #[test]
+    fn test_pixelate() {
+        let pix_image = image::open("./src/test_pictures/pixel_area.png".to_string()).expect("TEST ERROR");
+        let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img.img = image::ImageRgba8(pixelate::pixelate_area_test(&test_img));
+  
+        assert_eq!(pix_image.pixels().eq(test_img.img.pixels()), true);
+       
+        let test_image = image::open("./src/test_pictures/pixel_whole.png".to_string()).expect("TEST ERROR");
+        test_img.img = image::ImageRgba8(pixelate::pixelate_test(&test_img));
+        assert_eq!(test_image.pixels().eq(test_img.img.pixels()), true);
+    }
+   
+    #[test]
+    fn test_rotate() {
+        let r90_image = image::open("./src/test_pictures/rotate_90.png".to_string()).expect("TEST ERROR");
+        let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img.img = image::ImageRgba8(rotate90::rotate90_img(&test_img));
+  
+        assert_eq!(r90_image.pixels().eq(test_img.img.pixels()), true);
+       
+        let r180_image = image::open("./src/test_pictures/rotate_180.png".to_string()).expect("TEST ERROR");
+        test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img.img = image::ImageRgba8(rotate180::rotate180_img(&test_img));
+        assert_eq!(r180_image.pixels().eq(test_img.img.pixels()), true); 
+        
+        let r270_image = image::open("./src/test_pictures/rotate_270.png".to_string()).expect("TEST ERROR");
+        test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img.img = image::ImageRgba8(rotate270::rotate270_img(&test_img));
+        assert_eq!(r270_image.pixels().eq(test_img.img.pixels()), true);
+
+    }
+
+    #[test]
+    fn should_fail() {
+        let fail_image = image::open("./src/test_pictures/rotate_180.png".to_string()).expect("TEST ERROR");
+        let mut test_img = imagestruct::MainImage::new("./src/test_pictures/Test.jpg".to_string());
+        test_img.img = image::ImageRgba8(rotate90::rotate90_img(&test_img));
+        assert_eq!(fail_image.pixels().eq(test_img.img.pixels()), false);
+    }
+
+
 }

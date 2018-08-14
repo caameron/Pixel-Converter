@@ -16,6 +16,12 @@ The program will then display a menu and give you instructions
 When finished the ouput of the program will be saved to the Output directory which is located with the source files in
 the src directory
 
+TESTING
+
+cargo test
+
+this will run a series of unit tests that test individual functions. The tests will run the function on an image and compare each pixel
+with the pixels of a image which has already been altered in the same way and confirmed that it is correct.
 # Topic Area and Project Vision
 For this project we want to focus on image manipulation by changing its pixels. So our topic area revolves around images and graphics and
 the unique and vast ways they can be changed or altered to match someones preferences or creativity.
