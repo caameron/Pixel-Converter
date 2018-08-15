@@ -4,6 +4,10 @@ Pixel Converter for Rust Programming Language Class
 #How to run program
 Download the repository and have the path of the image you want to alter on hand
 
+Switch into the src directory.
+(This is still a work in progress, so for now the program has to run in the src directory or else the program will not be able
+to save the output image correctly)
+
 run : cargo run
 
 All crates will be downloaded and the program will prompt you to give the path of the image you want to alter.
@@ -12,6 +16,12 @@ The program will then display a menu and give you instructions
 When finished the ouput of the program will be saved to the Output directory which is located with the source files in
 the src directory
 
+TESTING
+
+cargo test
+
+this will run a series of unit tests that test individual functions. The tests will run the function on an image and compare each pixel
+with the pixels of a image which has already been altered in the same way and confirmed that it is correct.
 # Topic Area and Project Vision
 For this project we want to focus on image manipulation by changing its pixels. So our topic area revolves around images and graphics and
 the unique and vast ways they can be changed or altered to match someones preferences or creativity.
