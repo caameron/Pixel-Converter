@@ -86,3 +86,4 @@ fn main() {
     //Output will place a file in the src director
     img.output();
 }
+
