@@ -95,6 +95,7 @@ mod flip_test {
     use rotate90;
     use rotate180;
     use rotate270;
+    use crop;
   
     #[test]
     fn test_flip() {
@@ -144,6 +145,14 @@ mod flip_test {
         test_img.img = image::ImageRgba8(pixelate::pixelate_test(&test_img));
         assert_eq!(test_image.pixels().eq(test_img.img.pixels()), true);
     }
+
+    #[test]
+    fn test_crop() {
+	let crop_image = image::open("./src/test_pictures/crop_test.png".to_string()).expect("TEST ERROR");
+	let mut test_img = imagestruct::MainImage::new("./src/test_pictures/beach.jpeg".to_string());
+	test_img.img = image::ImageRgba8(crop::crop_test(&test_img));
+	assert_eq!(crop_image.pixels().eq(test_img.img.pixels()), true);  
+    }
    
     #[test]
     fn test_rotate() {
@@ -173,5 +182,74 @@ mod flip_test {
         assert_eq!(fail_image.pixels().eq(test_img.img.pixels()), false);
     }
 
+    #[test]
+    fn test_flip_mirror_gray_enlarge() {
+	let all_image = image::open("./src/test_pictures/flip_mirror_gray_enlarge.png".to_string()).expect("TEST ERROR");
+	let mut test_img = imagestruct::MainImage::new("./src/test_pictures/beach.jpeg".to_string());
+	test_img = test_img.flip_image();
+	test_img = test_img.mirror_image();
+	test_img = test_img.grayscale_image();
+	test_img = test_img.enlarge_image();
+	assert_eq!(all_image.pixels().eq(test_img.img.pixels()), true);
+    }
 
+    #[test]
+    fn test_flip_enlarge() {
+	let all_image = image::open("./src/test_pictures/flip_enlarge.png".to_string()).expect("TEST ERROR");
+	let mut test_img = imagestruct::MainImage::new("./src/test_pictures/beach.jpeg".to_string());
+	test_img = test_img.flip_image();
+	test_img = test_img.enlarge_image();
+	assert_eq!(all_image.pixels().eq(test_img.img.pixels()), true);
+    }
+
+    #[test]
+    fn test_flip_gray() {
+	let all_image = image::open("./src/test_pictures/flip_gray.png".to_string()).expect("TEST ERROR");
+	let mut test_img = imagestruct::MainImage::new("./src/test_pictures/beach.jpeg".to_string());
+	test_img = test_img.flip_image();
+	test_img = test_img.grayscale_image();
+	assert_eq!(all_image.pixels().eq(test_img.img.pixels()), true);
+    }
+
+    #[test]
+    fn test_flip_mirror() {
+	let all_image = image::open("./src/test_pictures/flip_mirror.png".to_string()).expect("TEST ERROR");
+	let mut test_img = imagestruct::MainImage::new("./src/test_pictures/beach.jpeg".to_string());
+	test_img = test_img.flip_image();
+	test_img = test_img.mirror_image();
+	assert_eq!(all_image.pixels().eq(test_img.img.pixels()), true);
+    }
+
+    #[test]
+    fn test_mirror_gray_crop() {
+	let all_image = image::open("./src/test_pictures/mirror_gray_crop.png".to_string()).expect("TEST ERROR");
+	let mut test_img = imagestruct::MainImage::new("./src/test_pictures/beach.jpeg".to_string());
+	test_img = test_img.mirror_image();
+	test_img = test_img.grayscale_image();
+	test_img.img = image::ImageRgba8(crop::crop_test(&test_img));
+	assert_eq!(all_image.pixels().eq(test_img.img.pixels()), true);
+    }
+
+    #[test]
+    fn test_gray_mirror_pixelate() {
+	let all_image = image::open("./src/test_pictures/gray_mirror_pixel.png".to_string()).expect("TEST ERROR");
+	let mut test_img = imagestruct::MainImage::new("./src/test_pictures/beach.jpeg".to_string());
+	test_img = test_img.grayscale_image();
+	test_img = test_img.mirror_image();
+	test_img.img = image::ImageRgba8(pixelate::pixelate_test(&test_img));
+	assert_eq!(all_image.pixels().eq(test_img.img.pixels()), true);
+    }
+
+    #[test]
+    fn test_flip_gray_rot90() {
+	let all_image = image::open("./src/test_pictures/flip_gray_rot90.png".to_string()).expect("TEST ERROR");
+	let mut test_img = imagestruct::MainImage::new("./src/test_pictures/beach.jpeg".to_string());
+	test_img = test_img.flip_image();
+	test_img = test_img.grayscale_image();
+	test_img.img = image::ImageRgba8(rotate90::rotate90_img(&test_img));
+	assert_eq!(all_image.pixels().eq(test_img.img.pixels()), true);
+    }
+    
+
+    
 }

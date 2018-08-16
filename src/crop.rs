@@ -100,3 +100,52 @@ pub fn crop(img_struct: &imagestruct::MainImage) -> ImageBuffer<Rgba<u8>, Vec<u8
     }
     cropped_img
 }
+
+//this function is called to test crop function. This function wont take stdin and instead will
+//use default values for testing purposes.
+#[allow(dead_code)]
+pub fn crop_test(img_struct: &imagestruct::MainImage) -> ImageBuffer<Rgba<u8>, Vec<u8>> {
+    let width = img_struct.width;
+    let height = img_struct.height;
+
+    let x_start = 0;
+    let y_start = 0;
+
+    println!("Original image is {} by {}", width, height);
+
+    let x_end = 100;
+    let y_end = 100;
+ 
+    let cropwidth = x_end - x_start + 1;
+    let cropheight = y_end - y_start + 1;
+
+    //create new cropped image with new dimensions.
+    let mut cropped_img = ImageBuffer::new(cropwidth, cropheight);
+
+    let mut crop_x = 0;
+    let mut crop_y = 0;
+    let mut rel_x = x_start;
+    let mut rel_y = y_start;
+  
+    //iterate through each pixel and only add the pixel if it is within the bounds of the
+    //cropped dimensions.
+    for pixel in img_struct.img.pixels() {
+        if pixel.0 == rel_x && pixel.1 == rel_y {
+            cropped_img.put_pixel(crop_x, crop_y, pixel.2);
+            crop_x += 1;
+            if crop_x == cropwidth as u32 {
+                crop_x = 0;
+                crop_y += 1;
+            }
+            rel_x += 1;
+            if rel_x > x_end {
+                rel_x = x_start;
+                rel_y += 1;
+            }
+        }
+        if crop_y == cropheight {
+            break;
+        }
+    }
+    cropped_img
+}
